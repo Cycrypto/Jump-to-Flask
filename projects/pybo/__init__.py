@@ -16,11 +16,15 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     from . import models
-    
-    #BLUE PRINT
-    from .views import main_views
-    app.register_blueprint(main_views.bp)
 
+    #BLUE PRINT
+    from .views import main_views, question_views, answer_views
+    app.register_blueprint(main_views.bp)
+    app.register_blueprint(question_views.bp)
+    app.register_blueprint(answer_views.bp)
+
+    for rule in app.url_map.iter_rules():
+        print("URL_MAPPING : ",rule)
     return app
 
 # create_app : 애플리케이션 팩토리 (Flask 내부에서 정의됨)
